@@ -1,22 +1,7 @@
-require 'mechanize'
+
 require 'find'
 require 'id3tag'
-# agent = Mechanize.new
 
-# agent.get("http://www.last.fm/login")
-# agent.page.forms
-# form = agent.page.form_with(:action=>'/login')
-#
-# form.field_with(:name=>"username").value=''
-#
-# form.field_with(:name=>"password").value=''
-# form.submit
-#
-# agent.get("http://www.last.fm/home/recs")
-#
-# puts agent.page.links_with(:class=>"name").map {|m| m.text}
-#
-# ###
 def search_backup
   backup_path = '/Volumes/media/music/backup/'
   mp3s = Find.find(backup_path).select {|m| /.*\.mp3$/ =~ m }.compact

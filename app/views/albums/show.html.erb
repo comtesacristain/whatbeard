@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+<%= link_to @album.artist.title, @album.artist%> - <%= @album.title %>
+<ol>
+<% @album.tracks.each do |track| %>
+<li><span title='<%= track.filepath%>'><%= track.artist.title %> - <%= track.title %></span></li>
+<% end %>
+</ol>
+<%= link_to 'Edit', edit_album_path(@album) %> |
+<%= link_to 'Back', albums_path %>

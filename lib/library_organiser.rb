@@ -3,15 +3,23 @@ require 'find'
 require 'id3tag'
 
 class LibraryOrganiser
-
-  def search(path,type)
-    
-    mp3s = Find.find(path).select {|m| /.*\.(mp3|m4a|flac)$/ =~ m }.compact
-    mp3s.each do |mp3|
-      puts mp3
-      unless mp3.nil?
-        track = Track.find_or_create_by(filepath:mp3) #this should be unique
+  #paths = "/Volumes/media/music/all/" type :library
+  #@path = "/Volumes/media/music/all/2 Many DJ's/"
   
+  # @path
+  # @type
+  def initialize(path=nil, location=nil)
+    @path = path
+    @location = location
+  end
+
+  def search
+    if @path.nil? || @location.nil?
+      return
+    end
+    mp3s = Find.find(@path).select {|m| /.*\.(mp3|m4a|flac)$/ =~ m }.compact
+    mp3s.each do |mp3|
+      track = Track.find_or_create_by(filepath:mp3)
         begin
           tag = ID3Tag.read(File.open(mp3,'rb'))
           album_artist = Artist.find_or_create_by(title:album_artist(tag))
@@ -23,9 +31,9 @@ class LibraryOrganiser
         rescue Errno::ENOENT => e
           track.file_status ="ERR"
         ensure
+          track.location = @location
           track.save
         end
-      end
     end
   end
 

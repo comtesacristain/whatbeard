@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Recommendations</h1>
+
+<div id="container">
+	<div id="posterboard">
+    <% @album_recommendations.each do |recommendation| %>
+	<div class="album">
+		<div class="album-image"></div>
+        <%= link_to recommendation.recommended.artist.title, recommendation.recommended.artist %> - <%= link_to recommendation.recommended.title, recommendation.recommended %>
+</div>
+    <% end %>
+</div>
+</div>
+

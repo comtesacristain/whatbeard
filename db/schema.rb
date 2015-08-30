@@ -11,36 +11,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150824044700) do
+ActiveRecord::Schema.define(version: 20150824091613) do
 
   create_table "albums", force: :cascade do |t|
     t.string   "title"
     t.integer  "artist_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "lastfm_url"
   end
 
   create_table "artists", force: :cascade do |t|
     t.string   "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "lastfm_url"
   end
 
-  create_table "music_files", force: :cascade do |t|
-    t.string   "path"
-    t.string   "status"
-    t.integer  "track_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "location"
+  create_table "recommendations", force: :cascade do |t|
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.string   "source"
+    t.integer  "recommended_id"
+    t.string   "recommended_type"
   end
+
+  add_index "recommendations", ["recommended_id"], name: "index_recommendations_on_recommended_id"
 
   create_table "tracks", force: :cascade do |t|
     t.string   "title"
     t.integer  "album_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.text     "filepath"
     t.integer  "artist_id"
+    t.string   "file_status"
+    t.string   "location"
   end
 
   add_index "tracks", ["artist_id"], name: "index_tracks_on_artist_id"

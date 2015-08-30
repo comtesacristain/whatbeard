@@ -1,0 +1,27 @@
+// Place all the styles related to the recommendations controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.container {
+	margin: 0 auto;
+}
+
+#posterboard {
+	width: 1300px;
+	margin: 0 auto;
+}
+
+div .album {
+	width: 200px;
+	height: 300px;
+	float: left;
+	margin-left: 50px;
+}
+
+div .album-image {
+	width: 200px;
+	height: 200px;
+	outline: 1px solid;
+	
+}
+

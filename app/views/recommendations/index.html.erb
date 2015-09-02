@@ -6,7 +6,7 @@
 	<div id="posterboard">
     <% @album_recommendations.each do |recommendation| %>
 	<div class="album">
-		<div class="album-image"></div>
+		<div class="album-image"><%= image_tag recommendation.recommended.cover.url(:medium), height: 200, width: 200 %></div>
         <%= link_to recommendation.recommended.artist.title, recommendation.recommended.artist %> - <%= link_to recommendation.recommended.title, recommendation.recommended %>
 </div>
     <% end %>

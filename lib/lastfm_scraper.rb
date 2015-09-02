@@ -1,27 +1,10 @@
 require 'mechanize'
 
 
-class LastfmScraper
+class LastfmScraper < Scraper
   LOGIN = {url:"https://secure.last.fm/login",action:"/login"}
-  
-  def initialize
-    @agent = Mechanize.new
-  end
-  
-  def credentials
-    YAML::load_file("#{Rails.root}/config/lastfm.yml")
-  end
 
-  def login
-    @agent.get(LOGIN[:url])
-    @agent.page.forms
-    form = @agent.page.form_with(action:LOGIN[:action])
-  
-    form.field_with(:name=>"username").value=credentials["username"]
 
-    form.field_with(:name=>"password").value=credentials["password"]
-    form.submit
-  end
 
   def artists
     artist_page = @agent.get("http://www.last.fm/home/artists")
@@ -41,14 +24,11 @@ class LastfmScraper
     albums = album_blocks.map do |b|
       album = b.at("a.link-block-target").text.strip
       artist = b.at("p.recs-feed-description").at("a").text.strip
+      image_url = b.search("img.layout-image-image")[1].attributes["src"].value
       link = "#{@agent.page.uri.scheme}://#{@agent.page.uri.host}#{b.at("a.link-block-target").attr('href')}"
-      {artist: artist, album: album,  url: link}
+      {artist: artist, album: album,  url: link, image_url: image_url }
     
     end
   end
   
-  private
-  def login_items
-    return
-  end
 end

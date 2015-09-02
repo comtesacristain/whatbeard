@@ -15,4 +15,5 @@
 /log/*
 !/log/.keep
 /tmp
-config/lastfm.yml
+config/*.yml
+/public/system/*
